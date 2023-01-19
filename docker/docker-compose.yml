@@ -2,15 +2,15 @@ version: "3.8"
 services:
   todoback:
     build: 
-      context: .
-      dockerfile: ./todo-app/back-end/
+      context: ./todo-app/back-end/
+      dockerfile: Dockerfile
     container_name: 'backend-container' 
     ports: 
       - "3001:3001"
   todofront:
     build: 
-      context: .
-      dockerfile: ./todo-app/front-end/
+      context: ./todo-app/front-end/
+      dockerfile: Dockerfile
     container_name: 'frontend-container'
     ports:
       - "3000:3000"
@@ -20,8 +20,8 @@ services:
       - REACT_APP_API_HOST=todoback
   todotests:
     build: 
-      context: .
-      dockerfile: ./todo-app/tests/
+      context: ./todo-app/tests/
+      dockerfile: Dockerfile
     container_name: "tests-container"
     environment:
       - FRONT_HOST=todofront
