@@ -1,11 +1,24 @@
-version: 'X'
+version: "3.8"
 services:
-  app_A:
-    # ...
-    # parâmetros
-    # ...
-  app_B:
-    # ...
-    # parâmetros
-    # ...
-  # ...
+  todoback:
+    build: "./todo-app/back-end/"
+    container_name: 'backend-container' 
+    ports: 
+      - "3001:3001"
+  todofront:
+    build: "./todo-app/front-end/"
+    container_name: 'frontend-container'
+    ports:
+      - "3000:3000"
+    depends_on:
+      - todoback
+    environment:
+      - REACT_APP_API_HOST=todoback
+  todotests:
+    build: "./todo-app/tests/"
+    container_name: "tests-container"
+    environment:
+      - FRONT_HOST=todofront
+    depends_on:
+      - todofront
+      - todoback
